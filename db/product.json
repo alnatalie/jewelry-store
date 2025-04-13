@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Кольцо серебряное  с фианитом",
+    "description": "Металл: серебро 925 пробы",
+    "price": 1990,
+    "id": 1,
+    "img": "/ring1.jpg",
+    "CategoryId": "1",
+    "category": "2",
+    "material": "2"
+  },
+  {
+    "name": "Кольцо серебряное  с черным стеклом",
+    "description": "Металл: серебро 925 пробы",
+    "img": "/ring2.jpeg",
+    "category": "2",
+    "price": 4990,
+    "material": "2",
+    "id": 2
+  },
+  {
+    "name": "Кулон ключ от сердца",
+    "description": "Металл: серебро 925 пробы",
+    "img": "/key.jpeg",
+    "category": "5",
+    "price": 16900,
+    "material": "2",
+    "id": 3
+  },
+  {
+    "name": "Серьги-кольца",
+    "description": "Металл: золото 585 пробы",
+    "img": "/sergi.jpeg",
+    "category": "1",
+    "price": 35300,
+    "material": "1",
+    "id": 4
+  },
+  {
+    "name": "Браслет тонкий из золота",
+    "description": "Металл: золото 585 пробы",
+    "img": "/braslet.jpg",
+    "category": "6",
+    "price": 313600,
+    "material": "1",
+    "id": 5
+  },
+  {
+    "name": "Браслет тонкий с бриллиантами ",
+    "description": "Металл: серебро 925 пробы",
+    "img": "/braslet-serebro.jpg",
+    "category": "6",
+    "price": 242880,
+    "material": "2",
+    "id": 6
+  },
+  {
+    "name": "Кулон Moon",
+    "description": "Металл: бижутерный сплав",
+    "img": "/moon.jpeg",
+    "category": "2",
+    "price": 1790,
+    "material": "3",
+    "id": 7
+  }
+]
