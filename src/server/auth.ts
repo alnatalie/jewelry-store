@@ -1,11 +1,12 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import type { ProviderType } from "next-auth/providers";
 import Credentials from "next-auth/providers/credentials";
-import GitHub from "next-auth/providers/github";
 import { repo, withRemult, type UserInfo } from "remult";
 import bcrypt from "bcryptjs";
 import { User } from "../demo/auth/User";
 import { Roles } from "../demo/auth/Roles";
+import Yandex from "next-auth/providers/yandex";
+import VK from "next-auth/providers/vk";
 
 // Configuration for Auth.js
 const authConfig: NextAuthConfig = {
@@ -45,7 +46,11 @@ const authConfig: NextAuthConfig = {
           return null; // If credentials are invalid, return null
         }),
     }),
-    GitHub,
+    Yandex({clientId: process.env.YANDEX_CLIENT_ID!,
+      clientSecret: process.env.YANDEX_CLIENT_SECRET!,
+    }),
+    VK({clientId: process.env.AUTH_VK_ID, 
+      clientSecret: process.env.AUTH_VK_SECRET,})
   ],
   callbacks: {
     signIn: (arg) =>

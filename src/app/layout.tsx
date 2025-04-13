@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { LinksNav, Nav } from "@/components/navigation/nav";
 import { Footer } from "@/components/footer";
+import { Box, CssBaseline } from "@mui/material";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,14 +29,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header>
-          <div>
-            <Nav />
-            <LinksNav />
-          </div>
-        </header>
-        <main>{children}</main>
-        <Footer />
+        <CssBaseline />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+
+          <header>
+            <div>
+              <Nav />
+              <LinksNav />
+            </div>
+          </header>
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1, 
+              py: 3, 
+            }}
+          >
+            <main>{children}</main>
+
+          </Box>
+            <Footer />
+        </Box>
       </body>
     </html>
   );

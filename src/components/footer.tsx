@@ -1,4 +1,6 @@
-import Link from "next/link"
+"use client"
+import { Box, List, ListItem, Typography, Link as MuiLink } from "@mui/material"
+import Link from "next/link";
 
 export function Footer(){
     const pages = [
@@ -7,22 +9,78 @@ export function Footer(){
         
     
     ]
-    return <footer>
-        <div>
-        <h2>PRICOSNIS</h2>
-        © 2025  «PRICOSNIS».
-        все права защищены.
-        </div>
-        <div>
-            <ul>
-                {pages.map(({href,title})=>
-                <li key={href}>
-                    <Link href={href}>
+    // return <footer>
+    //     <Box
+    //     component="footer"
+    //     sx={{
+    //         py:3,
+    //         px:2,
+    //         mt: 'auto',
+            
+    //     }}
+    //     >
+    //     <h2>PRICOSNIS</h2>
+    //     © 2025  «PRICOSNIS».
+    //     все права защищены.
+    //     </Box>
+    //     <div>
+    //         <ul>
+    //             {pages.map(({href,title})=>
+    //             <li key={href}>
+    //                 <Link href={href}>
+    //                 {title}
+    //              </Link>
+    //          </li>
+    //          )}
+    //         </ul>
+    //     </div>
+    // </footer>
+    return (
+        <Box
+          component="footer"
+          sx={{
+            py: 3,
+            px: 2,
+            mt: 'auto',
+            borderColor: 'divider',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              maxWidth: 'lg',
+              mx: 'auto',
+              gap: 2,
+            }}
+          >
+            <Box>
+              <Typography variant="h6" component="h2" gutterBottom>
+                PRICOSNIS
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                © 2025 «PRICOSNIS». Все права защищены.
+              </Typography>
+            </Box>
+    
+            <List sx={{ display: 'flex', gap: 2 }}>
+              {pages.map(({ href, title }) => (
+                <ListItem key={href} sx={{ width: 'auto', p: 0 }}>
+                  <MuiLink
+                    component={Link}
+                    href={href}
+                    color="inherit"
+                    underline="hover"
+                  >
                     {title}
-                 </Link>
-             </li>
-             )}
-            </ul>
-        </div>
-    </footer>
+                  </MuiLink>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Box>
+      );
 }
+
