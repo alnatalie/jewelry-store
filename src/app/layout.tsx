@@ -4,6 +4,7 @@ import "./globals.css";
 import { LinksNav, Nav } from "@/components/navigation/nav";
 import { Footer } from "@/components/footer";
 import { Box, CssBaseline } from "@mui/material";
+import RunningText from "@/components/run-text";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <RunningText/>
         <CssBaseline />
         <Box
           sx={{
