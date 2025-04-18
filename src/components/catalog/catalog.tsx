@@ -1,43 +1,51 @@
 "use client";
 import Image from "next/image";
-import { Product } from "@/shared/entities/Product";
-import { useEffect, useState } from "react";
-import { remult } from "remult";
+import {useStore} from '@nanostores/react';
 import classes from "./productCard.module.css";
-import useSWR from "swr";
 
-const API_URL = "http://localhost:3000/catalog";
+import { errorStore, isLoadingStore, productStore } from "../../../stores/product";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
+import Link from "next/link";
+
+
 
 export function SearchProducts() {
-  const { data, error, isLoading, isValidating } = useSWR(API_URL, {
-    revalidateOnFocus: false,
-  });
+  const products = useStore(productStore);
+  const isLoading = useStore(isLoadingStore);
+  const error = useStore(errorStore);
 
-  const [products, setProducts] = useState<Product[]>([]);
-  useEffect(() => {
-    remult.repo(Product).find().then(setProducts);
-  }, []);
+  if(isLoading) return <div>Загрузка...</div>; //Здесь сделать спиннер!!!!
+  if(error) return <div>Ошибка:{error}</div>;
+  if(!products.length) return <div>Товары не найдены</div>
 
   return (
-    <>
-      <div className={classes.flex}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px', padding: '20px' }}>
         {products.map((p) => (
-          <div
+          <Card
             key={p.id}
-            className={classes.productCard}
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
           >
-            <Image
-              src={p.img}
-              alt={p.name}
-              width={250}
-              height={300}
-            />
-            <h3>{p.name}</h3>
-            <span>{p.description}</span>
-            <span>{p.price}</span>
-          </div>
+            <CardActionArea component={Link} href={`/products/${p.id}`}>
+            <CardMedia component="img"
+            height="350"
+            image={p.img}
+            alt={p.name}
+            sx={{objectFit: 'contain', p:2}}/>
+
+            <CardContent sx={{flexGrow:1}}>
+              <Typography gutterBottom variant="h5" component="div">
+                {p.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {p.description.substring(0,100)}...
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <Typography variant="h6">{p.price}</Typography>
+            </CardContent>
+            </CardActionArea>
+          </Card>
         ))}
       </div>
-    </>
   );
 }

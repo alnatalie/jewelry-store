@@ -1,4 +1,4 @@
-import { Allow, Entity, Fields } from "remult";
+import { Entity, Fields } from "remult";
 
 @Entity('item', {
     allowApiCrud:true,
