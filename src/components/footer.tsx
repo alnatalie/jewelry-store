@@ -9,32 +9,6 @@ export function Footer(){
         
     
     ]
-    // return <footer>
-    //     <Box
-    //     component="footer"
-    //     sx={{
-    //         py:3,
-    //         px:2,
-    //         mt: 'auto',
-            
-    //     }}
-    //     >
-    //     <h2>PRICOSNIS</h2>
-    //     © 2025  «PRICOSNIS».
-    //     все права защищены.
-    //     </Box>
-    //     <div>
-    //         <ul>
-    //             {pages.map(({href,title})=>
-    //             <li key={href}>
-    //                 <Link href={href}>
-    //                 {title}
-    //              </Link>
-    //          </li>
-    //          )}
-    //         </ul>
-    //     </div>
-    // </footer>
     return (
         <Box
           component="footer"

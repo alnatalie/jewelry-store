@@ -1,4 +1,4 @@
-
+'use client'
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 
 const categories = [
@@ -151,3 +151,5 @@ export default function CategoryLinks() {
       </Box>
     );
   }
+
+
