@@ -24,10 +24,21 @@ export const loadProducts = async () => {
 
 //Автоматическая загрузка при инициализации стора
 onMount(productStore, () => {
-    const interval = setInterval(loadProducts, 60000);
-  loadProducts(); //Первоначальная загрузка
-  return () => {
-    clearInterval(interval);
-    productStore.set([]); //Очистка при демотнировании
+  let intervalId: number | null = null;
+  
+  // Первая загрузка
+  loadProducts();
+  
+  // Устанавливаем интервал только в браузерном окружении
+  if (typeof window !== 'undefined') {
+    intervalId = window.setInterval(loadProducts, 60000);
   }
+
+  return () => {
+    // Безопасная очистка интервала
+    if (intervalId !== null) {
+      window.clearInterval(intervalId);
+    }
+    productStore.set([]);
+  };
 });

@@ -15,7 +15,6 @@ export default function RunningText() {
             position: 'relative',
             marginLeft: '-26px',
             marginTop: '-26px',
-            marginBottom:'10px'
             
         }}>
             <Box sx={{

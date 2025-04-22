@@ -1,11 +1,13 @@
 "use client";
-import Image from "next/image";
+
 import {useStore} from '@nanostores/react';
-import classes from "./productCard.module.css";
+
 
 import { errorStore, isLoadingStore, productStore } from "../../../stores/product";
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
+import LinearProgress from '@mui/material/LinearProgress';
+import { useEffect, useState } from 'react';
 
 
 
@@ -13,8 +15,16 @@ export function SearchProducts() {
   const products = useStore(productStore);
   const isLoading = useStore(isLoadingStore);
   const error = useStore(errorStore);
+  const [isMounted, setIsMounted] = useState(false);
 
-  if(isLoading) return <div>Загрузка...</div>; //Здесь сделать спиннер!!!!
+  useEffect(()=>{
+    setIsMounted(true);
+  }, []);
+
+  if(!isMounted) {
+    return <div style={{height:'4px'}}></div>;
+  }
+  if(isLoading) return <div><LinearProgress color="inherit"/></div>; 
   if(error) return <div>Ошибка:{error}</div>;
   if(!products.length) return <div>Товары не найдены</div>
 

@@ -43,7 +43,7 @@ export default function RootLayout({
           <header>
             <div>
               <Nav />
-              <LinksNav />
+              {/* <LinksNav /> */}
             </div>
           </header>
           <Box
