@@ -14,13 +14,13 @@ const items: CarouselItem[] = [
   {
     name: "Новинки и хиты",
     description: "Новые коллеции украшений",
-    image: "https://static.insales-cdn.com/r/R9_0PkS2GY4/rs:fit:1000:0:1/plain/images/products/1/6866/796662482/8.12_украшения236550.jpg@webp",
+    image: "https://i.pinimg.com/1200x/f0/1f/cd/f01fcd2a5d066f30fa84f784a015540c.jpg",
     link:"/catalog",
   },
   {
     name: "Идеи подарков",
     description: "Подарочные сертификаты для тебя и твоих близких",
-    image: "https://i.pinimg.com/736x/29/e4/bf/29e4bfad0eadeb5779218107e67c0519.jpg",
+    image: "https://i.pinimg.com/1200x/d6/36/b1/d636b136678a972a61281ab41b701dcf.jpg",
     link:"/certificates",
   },
   {
@@ -41,7 +41,7 @@ export default function MainCarousel() {
 
 
   return (
-    <Box sx={{ maxWidth: "80%", margin: "auto", }}>
+    <Box sx={{ maxWidth: "85%", margin: "auto", }}>
       <Carousel
         NextIcon={<ChevronRight />}
         PrevIcon={<ChevronLeft />}

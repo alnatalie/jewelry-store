@@ -36,48 +36,55 @@ const ServiceBlocks = ()=> {
 
   return (
     <Box sx={{
-      maxWidth: 1200,
+      width: '100%',
+      maxWidth: 1900, 
       margin: '40px auto',
-      padding: '0 20px'
+      px: { xs: 2, sm: 3, md: 4 },
     }}>
-      <Typography variant="h4" align="center" sx={{ mb: 4 }}>
+      <Typography variant="h4" align="center" sx={{ mb: 6, fontWeight: 'bold' }}>
         Мы любим украшения и заботимся о сервисе
       </Typography>
 
-      <Grid container spacing={4} sx={{
-        display: 'flex',
-        flexWrap:'nowrap',
-        flexDirection:'row',
-      }}>
+      <Grid container spacing={{ xs: 3, md: 4 }} justifyContent="center">
         {services.map((service, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid item xs={12} sm={6} lg={3} key={index} sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
             <Paper elevation={3} sx={{
-              height: '100%',
-              maxWidth:'300px',
+              width: '100%',
+              maxWidth: 320,
               p: 3,
               display: 'flex',
               flexDirection: 'column',
-              flexWrap:'wrap',
+              minHeight: 280,
               '&:hover': {
                 boxShadow: 6,
                 transform: 'translateY(-5px)',
                 transition: 'all 0.3s ease'
               }
             }}>
-              <Typography variant="h6" component="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h6" component="h3" gutterBottom sx={{ 
+                fontWeight: 'bold',
+                fontSize: { xs: '1.1rem', md: '1.2rem' }
+              }}>
                 {service.title}
                 {service.duration && (
                   <Typography component="span" sx={{ 
                     display: 'block', 
                     fontSize: '0.9rem',
                     color: 'text.secondary',
-                    mt: 1
+                    mt: 1,
+                    fontWeight: 'normal'
                   }}>
                     {service.duration}
                   </Typography>
                 )}
               </Typography>
-              <Typography variant="body1" sx={{ mt: 2 }}>
+              <Typography variant="body1" sx={{ 
+                mt: 2,
+                flexGrow: 1
+              }}>
                 {service.description}
               </Typography>
             </Paper>

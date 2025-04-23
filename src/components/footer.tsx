@@ -32,10 +32,10 @@ export function Footer(){
           >
             <Box>
               <Typography variant="h6" component="h2" gutterBottom>
-                PRICOSNIS
+                JEWELRY
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                © 2025 «PRICOSNIS». Все права защищены.
+                © 2025 «JEWELRY». Все права защищены.
               </Typography>
             </Box>
     

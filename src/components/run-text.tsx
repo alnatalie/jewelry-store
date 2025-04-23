@@ -13,8 +13,6 @@ export default function RunningText() {
             color: 'white',
             py: 1,
             position: 'relative',
-            marginLeft: '-26px',
-            marginTop: '-26px',
             
         }}>
             <Box sx={{

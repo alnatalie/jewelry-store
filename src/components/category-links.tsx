@@ -42,7 +42,7 @@ export default function CategoryLinks() {
         padding: '0 20px'
       }}>
         <Box sx={{ 
-          maxWidth: '1200px', 
+          maxWidth: '1900px', 
           width: '100%',
         }}>
           <Grid container spacing={3} justifyContent="center">

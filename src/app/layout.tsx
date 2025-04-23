@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import { LinksNav, Nav } from "@/components/navigation/nav";
+import { Nav } from "@/components/navigation/nav";
 import { Footer } from "@/components/footer";
 import { Box, CssBaseline } from "@mui/material";
 import RunningText from "@/components/run-text";
@@ -43,7 +42,6 @@ export default function RootLayout({
           <header>
             <div>
               <Nav />
-              {/* <LinksNav /> */}
             </div>
           </header>
           <Box

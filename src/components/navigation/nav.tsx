@@ -1,12 +1,12 @@
 'use client'
 import Link from "next/link";
 import { CiHeart, CiSearch, CiShoppingCart, CiUser } from "react-icons/ci";
-import classes from './nav.module.css'
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Badge, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar,  Typography, Slide, InputBase} from "@mui/material";
 import React, { useState } from "react";
-import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import DiamondIcon from '@mui/icons-material/Diamond';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const pages = [
   { href: "/", title: "Главная" },
@@ -16,30 +16,32 @@ const pages = [
   { href: "/contacts", title: "Контакты" },
 ];
 
-const links = [
-  {
-    href: "/search",
-    title: (<div><CiSearch /></div>),
-  },
+// const links = [
+//   {
+//     href: "/search",
+//     title: (<div><CiSearch /></div>),
+//   },
 
-  {
-    href: "/wishlist",
-    title: (<div><CiHeart /></div>),
-  },
-  {
-    href: "/basket",
-    title: (<div ><CiShoppingCart /></div>),
-  },
-  {
-    href: "/account",
-    title: (<div ><CiUser /></div>),
-  },
-];
-const settings = ['Профиль', 'Настройки', 'Выйти'];
+//   {
+//     href: "/wishlist",
+//     title: (<div><CiHeart /></div>),
+//   },
+//   {
+//     href: "/basket",
+//     title: (<div ><CiShoppingCart /></div>),
+//   },
+//   {
+//     href: "/account",
+//     title: (<div ><CiUser /></div>),
+//   },
+// ];
+// const settings = ['Профиль', 'Настройки', 'Выйти'];
+
 
 export function Nav() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+   const [searchOpen, setSearchOpen] = useState(false);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -55,12 +57,18 @@ export function Nav() {
     setAnchorElUser(null);
   };
 
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+  };
+
+
   return (
     <AppBar position="static" sx={{
-      width: '102vw',
+      width: '100vw',
       backgroundColor:'white',
       color: 'black',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      position: 'relative',
     }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -71,8 +79,8 @@ export function Nav() {
             color: 'primary.main',
             transition: 'all 0.3s ease',
             '&:hover': {
-    transform: 'scale(1.1) rotate(15deg)' // Эффект при наведении
-  }
+            transform: 'scale(1.1) rotate(15deg)' // Эффект при наведении
+            }
           }} />
           <Typography
             variant="h6"
@@ -131,8 +139,6 @@ export function Nav() {
               ))}
             </Menu>
           </Box>
-          
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
             variant="h5"
             noWrap
@@ -175,13 +181,118 @@ export function Nav() {
             ))}
           </Box>
 
-          {/* Пользовательское меню */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User Avatar" src="" />
-              </IconButton>
-            </Tooltip>
+          
+
+          {/* Линки */}
+          <Box sx={{
+            display: 'flex', 
+            alignItems: 'center',
+            gap: 1,
+            ml: 'auto'
+          }}>
+            {/* Поле поиска */}
+            <Slide direction="left" in={searchOpen} mountOnEnter unmountOnExit>
+            <Box sx={{
+                width: '250px',
+                mr: 1,
+                transition: 'all 0.3s ease'
+              }}>
+                <InputBase
+                  placeholder="Поиск..."
+                  fullWidth
+                  autoFocus
+                  sx={{
+                    bgcolor: 'rgba(0,0,0,0.05)',
+                    borderRadius: 1,
+                    px: 2,
+                    py: 1,
+                    '& .MuiInputBase-input': {
+                      p: 0,
+                    }
+                  }}
+                  endAdornment={
+                    <IconButton 
+                      onClick={toggleSearch}
+                      size="small"
+                      sx={{ mr: -1 }}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
+                  }
+                />
+              </Box>
+
+            </Slide>
+            
+            {/* Кнопка поиска */}
+            <IconButton 
+              aria-label="search" 
+              onClick={toggleSearch}
+              sx={{ 
+                color: 'black',
+                transform: searchOpen ? 'scale(0)' : 'scale(1)',
+                transition: 'transform 0.3s ease',
+                width: searchOpen ? 0 : 'auto',
+                overflow: 'hidden'
+              }}
+            >
+              <CiSearch size={24} />
+            </IconButton>
+
+            {!searchOpen && (
+              <>
+            {/* Кнопка избранного */}
+            <IconButton 
+              aria-label="favorites" 
+              color="inherit"
+              component={Link}
+              href="/wishlist"
+              sx={{ color: 'black',
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  color: 'primary.main',}
+              }}
+            >
+              <Badge badgeContent={4} color="error">
+                <CiHeart size={24} />
+              </Badge>
+            </IconButton>
+
+             {/* Кнопка корзины */}
+             <IconButton 
+              aria-label="cart" 
+              color="inherit"
+              component={Link}
+              href="/cart"
+              sx={{ color: 'black',
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  color: 'primary.main',}
+              }}
+            >
+              <Badge badgeContent={2} color="error">
+                <CiShoppingCart size={24} />
+              </Badge>
+            </IconButton>
+
+            {/* Кнопка профиля */}
+            <IconButton 
+              aria-label="user profile" 
+              color="inherit"
+              onClick={handleOpenUserMenu}
+              sx={{ color: 'black',
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  color: 'primary.main',}
+              }}
+            >
+              <CiUser size={24} />
+            </IconButton>
+
+            {/* Меню профиля */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -198,40 +309,27 @@ export function Nav() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu} component={Link} href="api/auth/signin">
+                Профиль
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu} component={Link} href="/orders">
+                Мои заказы
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu} component={Link} href="/logout">
+                Выйти
+              </MenuItem>
             </Menu>
+              </>
+            )}
+
+
           </Box>
+
+
         </Toolbar>
       </Container>
     </AppBar>
-
-//     <nav>
-//       <ul>
-//         {pages.map(({ href, title }) => (
-//           <li key={href} >
-//             <Link href={href}>{title}</Link>
-//           </li>
-//         ))}
-//       </ul>
-//     </nav>
-//   );
-// }
           )}
           
-// export function LinksNav() {
-//   return (
-//     <nav className={classes.links}>
-//       <ul>
-//         {links.map(({ href, title }) => (
-//           <li key={href}>
-//             <Link href={href}>{title}</Link>
-//           </li>
-//         ))}
-//       </ul>
-//     </nav>
 //   );
 // }

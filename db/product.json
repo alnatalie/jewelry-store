@@ -1,6 +1,6 @@
 [
   {
-    "name": "Кольцо серебряное  с фианитом",
+    "name": "Кольцо серебряное  с горным хрусталем",
     "description": "Металл: серебро 925 пробы",
     "price": 1990,
     "id": 1,
@@ -41,7 +41,7 @@
     "description": "Металл: золото 585 пробы",
     "img": "/braslet.jpg",
     "category": "6",
-    "price": 313600,
+    "price": 85600,
     "material": "1",
     "id": 5
   },
@@ -50,7 +50,7 @@
     "description": "Металл: серебро 925 пробы",
     "img": "/braslet-serebro.jpg",
     "category": "6",
-    "price": 242880,
+    "price": 104000,
     "material": "2",
     "id": 6
   },

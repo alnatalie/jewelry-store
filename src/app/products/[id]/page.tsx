@@ -1,27 +1,32 @@
-import { Product } from "@/shared/entities/Product";
-import { remult } from "remult";
-import ProductDetails from "@/components/productPage";
+'use client'
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const productId = Number(params.id);
-  if (isNaN(productId)) {
-    return <div>Неверный ID товара</div>;
-  }
+import { useParams } from 'next/navigation'
+import { useEffect } from 'react'
+import { useStore } from '@nanostores/react'
 
-  try {
-    const res = await fetch(`${process.env.API_URL || "http://localhost:3000"}/api/product/${productId}`, {
-      next: { revalidate: 10 },
-    });
+import { LinearProgress } from '@mui/material'
+import { loadProducts, productStore } from '../../../../stores/product'
+import ProductDetails from '@/components/productPage'
 
-    if (!res.ok) {
-      return <div>Ошибка: {res.status === 404 ? "Товар не найден" : "Ошибка при загрузке товара"}</div>;
+export default function ProductPage() {
+  const params = useParams<{ id: string }>()
+  const products = useStore(productStore)
+  
+  // Загружаем продукты при монтировании, если их нет
+  useEffect(() => {
+    if (products.length === 0) {
+      loadProducts()
     }
+  }, [])
 
-    const product = await res.json();
+  // Находим текущий продукт
+  const product = products.find(p => p.id.toString() === params.id)
 
-    return <ProductDetails product={product} />;
-  } catch (error) {
-    console.error('Ошибка при загрузке товара:', error);
-    return <div>Произошла ошибка при загрузке товара</div>;
+  if (!product) {
+    return <LinearProgress />
   }
+
+  return <ProductDetails product={product} />
 }
+
+
