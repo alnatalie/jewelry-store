@@ -29,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <RunningText/>
         <CssBaseline />
         <Box
           sx={{
@@ -38,23 +37,31 @@ export default function RootLayout({
             minHeight: "100vh",
           }}
         >
+          
+          <Box 
+            component="header"
+            sx={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 1100,
+              width: '100%',
+            }}
+          >
+            <Nav />
+          </Box>
 
-          <header>
-            <div>
-              <Nav />
-            </div>
-          </header>
           <Box
             component="main"
             sx={{
-              flexGrow: 1, 
-              py: 3, 
+              flexGrow: 1,
+              position: 'relative', 
+              pt: 0, 
             }}
           >
-            <main>{children}</main>
-
+            {children}
           </Box>
-            <Footer />
+
+          <Footer />
         </Box>
       </body>
     </html>

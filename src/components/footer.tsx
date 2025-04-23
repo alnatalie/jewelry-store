@@ -16,7 +16,9 @@ export function Footer(){
             py: 3,
             px: 2,
             mt: 'auto',
-            borderColor: 'divider',
+            borderTop: '1px solid',
+            borderColor: 'rgba(0, 0, 0, 0.12)',
+            
           }}
         >
           <Box

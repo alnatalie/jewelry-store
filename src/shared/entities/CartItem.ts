@@ -23,10 +23,5 @@ export class CartItem {
     createdAt = new Date(); //Дата добавления
 
 
-
-    
-
-
-
 }
 

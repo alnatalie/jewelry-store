@@ -63,6 +63,14 @@ export function Nav() {
 
 
   return (
+    <Box  sx={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 1100,
+      width: '100%',
+    }}>
+
+    
     <AppBar position="static" sx={{
       width: '100vw',
       backgroundColor:'white',
@@ -254,7 +262,16 @@ export function Nav() {
                   color: 'primary.main',}
               }}
             >
-              <Badge badgeContent={4} color="error">
+              <Badge 
+    badgeContent={4} 
+    sx={{
+      '& .MuiBadge-badge': {
+        color: 'white',       
+        backgroundColor: 'black', 
+        border: '1px solid black'
+      }
+    }}
+  >
                 <CiHeart size={24} />
               </Badge>
             </IconButton>
@@ -272,7 +289,16 @@ export function Nav() {
                   color: 'primary.main',}
               }}
             >
-              <Badge badgeContent={2} color="error">
+              <Badge 
+    badgeContent={2} 
+    sx={{
+      '& .MuiBadge-badge': {
+        color: 'white',       
+        backgroundColor: 'black', 
+        border: '1px solid black' 
+      }
+    }}
+  >
                 <CiShoppingCart size={24} />
               </Badge>
             </IconButton>
@@ -329,6 +355,7 @@ export function Nav() {
         </Toolbar>
       </Container>
     </AppBar>
+    </Box>
           )}
           
 //   );
