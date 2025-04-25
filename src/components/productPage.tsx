@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Box,
   Button,
@@ -12,56 +12,68 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Product } from "@/shared/entities/Product";
-import { AddToCartButton } from "./buttons/cartButton";
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import { addToCart } from "../../stores/cart-of-product";
+import { remult } from "remult";
 
 export default function ProductDetails({ product }: { product: Product }) {
-  console.log(product);
-
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleAddToCart = ()=> {
-    AddToCartButton({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      img: product.img
-    });
-
-    toast.success(`${product.name} добавлен в корзину`, {
-      position: 'top-center',
-      duration: 2000,
-      style: {
-        backgroundColor: '#4caf50',
-        color: '#fff',
-        padding: '16px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-      },
-      iconTheme: {
-        primary: '#fff',
-        secondary: '#4caf50',
-      }
-    });
+  const handleAddToCart = async () => {
+    try {
+      if(!remult.authenticated()){
+        toast.error('Для добавления в корзину необходимо авторизоваться', {
+          position:'top-center',
+          duration:3000,
+          action:{
+            label:'Войти',
+            onCllick:()=> window.location.href ='/api/auth/signin'
+          }
+        });
+        return;
+      };
+      await addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+      });
+      toast.success(`${product.name} добавлен в корзину`, {
+        position: 'top-center',
+        duration: 2000,
+        style: {
+          backgroundColor: '#4caf50',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+        },
+        iconTheme: {
+          primary: '#fff',
+          secondary: '#4caf50',
+        }
+      });
+    } catch (error) {
+      toast.error('Не удалось добавить товар в корзину');
+    }
   };
 
   const handleToggleFavorite = () => {
     const newFavoriteStatus = !isFavorite;
     setIsFavorite(newFavoriteStatus);
 
-    if(newFavoriteStatus) {
-      toast.success('Товар добавлен в избранное' , {
-        position:'top-center',
+    if (newFavoriteStatus) {
+      toast.success('Товар добавлен в избранное', {
+        position: 'top-center',
         duration: 2000,
-        style:{
+        style: {
           backgroundColor: '#4caf50',
           color: '#fff',
         }
       });
     } else {
       toast('Товар удален из избранного', {
-        position:'top-center',
+        position: 'top-center',
         duration: 2000,
         icon: '🗑️',
         style: {
@@ -167,19 +179,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                   },
                   flexGrow: 1
                 }}
-                onClick={() => {
-                  AddToCartButton({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    img: product.img
-                  });
-                  toast.success('Товар добавлен в корзину', {
-                    position: 'top-center',
-                    duration: 2000,
-                    
-                  });
-                }}
+                onClick={handleAddToCart}
               >
                 Добавить в корзину
               </Button>

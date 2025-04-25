@@ -4,6 +4,7 @@ import { Nav } from "@/components/navigation/nav";
 import { Footer } from "@/components/footer";
 import { Box, CssBaseline } from "@mui/material";
 import RunningText from "@/components/run-text";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,40 +30,41 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <CssBaseline />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-          }}
-        >
-          
-          <Box 
-            component="header"
-            sx={{
-              position: 'sticky',
-              top: 0,
-              zIndex: 1100,
-              width: '100%',
-            }}
-          >
-            <Nav />
-          </Box>
-
+        <AuthProvider>
+          <CssBaseline />
           <Box
-            component="main"
             sx={{
-              flexGrow: 1,
-              position: 'relative', 
-              pt: 0, 
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "100vh",
             }}
           >
-            {children}
-          </Box>
+            <Box
+              component="header"
+              sx={{
+                position: "sticky",
+                top: 0,
+                zIndex: 1100,
+                width: "100%",
+              }}
+            >
+              <Nav />
+            </Box>
 
-          <Footer />
-        </Box>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                position: "relative",
+                pt: 0,
+              }}
+            >
+              {children}
+            </Box>
+
+            <Footer />
+          </Box>
+        </AuthProvider>
       </body>
     </html>
   );

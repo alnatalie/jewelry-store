@@ -52,6 +52,11 @@ const authConfig: NextAuthConfig = {
     VK({clientId: process.env.AUTH_VK_ID, 
       clientSecret: process.env.AUTH_VK_SECRET,})
   ],
+  pages: {
+    signIn: '/profile',
+    signOut: '/',
+    error: '/profile',
+  },
   callbacks: {
     signIn: (arg) =>
       withRemult(async () => {

@@ -1,4 +1,6 @@
-import { Entity, Fields } from "remult";
+import { User } from "@/demo/auth/User";
+import { Entity, Fields, Relations } from "remult";
+import { Product } from "./Product";
 
 
 @Entity('cart_item', {
@@ -9,18 +11,32 @@ import { Entity, Fields } from "remult";
 export class CartItem {
     @Fields.string()
     id ='';
+    
+    @Fields.integer({allowNull: true})
+    productId = 0;
 
-    @Fields.string()
-    name ='';   //Название дублируется для быстрого доступа
+    @Fields.string({allowNull: true})
+    userId?:string;
 
-    @Fields.integer()
-    price! :number; //Цена за еденицу товара на момент добавления
+    // @Fields.string()
+    // name ='';   //Название дублируется для быстрого доступа
+
+    // @Fields.integer()
+    // price! :number; //Цена за еденицу товара на момент добавления
 
     @Fields.integer()
     quantity = 1; //Количество
 
     @Fields.date()
     createdAt = new Date(); //Дата добавления
+
+    @Relations.toOne(()=> User, { field: "userId"})
+    user?: User
+
+    @Relations.toOne(()=> Product, {field:"productId"})
+    product?: Product
+
+    
 
 
 }

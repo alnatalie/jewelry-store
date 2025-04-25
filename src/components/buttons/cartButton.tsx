@@ -1,25 +1,27 @@
 'use client'
 
-import { Button } from "@mui/material";
-import { addToCart, useCart } from "../../../stores/cart-of-product";
-import { CartItem } from "@/shared/entities/CartItem";
+'use client'
+import { Button } from '@mui/material';
 
-export function AddToCartButton({product} : {product: Omit<CartItem, 'quantity' | 'createdAt'>}){
-    const cart = useCart();
-    const item = cart[product.id];
-  
-    return(
-      <Button variant="contained"
-      size="large"
-      // startIcon={AddShoppingCartIcon}
-      onClick={()=> addToCart({
-        id: product.id,
-        name:product.name,
-        price:product.price,
-      })}
-      sx={{mt:2}}>
-        {item ? `В корзине (${item.quantity})` : 'Добавить в корзину'}
-      </Button>
-    )
-  
-  }
+import { toast } from 'react-hot-toast';
+import { addToCart } from '../../../stores/cart-of-product';
+
+export function AddToCartButton({ product }: { product: { id: string; name: string; price: number } }) {
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(product);
+      toast.success(`${product.name} добавлен в корзину`);
+    } catch (error) {
+      toast.error('Не удалось добавить в корзину');
+    }
+  };
+
+  return (
+    <Button 
+      variant="contained" 
+      onClick={handleAddToCart}
+    >
+      Добавить в корзину
+    </Button>
+  );
+}

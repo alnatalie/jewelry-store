@@ -4,12 +4,13 @@ import { User } from "../demo/auth/User";
 import { Item } from "@/shared/entities/item";
 import { store } from "@/shared/entities";
 import { Product } from "@/shared/entities/Product";
+import { Roles } from "@/demo/auth/Roles";
   
 export const api = remultNextApp({
   getUser: getUserFromRequest,
   initApi: async () => {
     await User.createDemoUsers();
   },
-  admin: true,
-  entities: [User, Item, Product , ...store],
-});
+  entities: [User, Item, Product, ...store],
+  admin: Roles.admin})
+ 
