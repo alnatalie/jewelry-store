@@ -24,7 +24,7 @@ export class Product {
   categoryId = "";
 
   @Relations.toOne(() => Category, { field: "categoryId" })
-  category?: Category;
+  category!: Category;
 
   @Fields.integer()
   price!: number;
@@ -33,8 +33,8 @@ export class Product {
   materialId = "";
 
   @Relations.toOne(() => Material, { field: "materialId" })
-  material?: Material;
+  material!: Material;
 
   @Relations.toOne(() => Size, { field: "sizeId" })
-  size?: Size;
+  size!: Size;
 }

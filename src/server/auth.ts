@@ -52,12 +52,10 @@ const authConfig: NextAuthConfig = {
     VK({clientId: process.env.AUTH_VK_ID, 
       clientSecret: process.env.AUTH_VK_SECRET,})
   ],
-  pages: {
-    signIn: '/profile',
-    signOut: '/',
-    error: '/profile',
-  },
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? `${baseUrl}/profile` : url
+    },
     signIn: (arg) =>
       withRemult(async () => {
         // This callback runs after sign-in

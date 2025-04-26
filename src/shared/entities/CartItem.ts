@@ -9,8 +9,8 @@ import { Product } from "./Product";
 })
 
 export class CartItem {
-    @Fields.string()
-    id ='';
+    @Fields.cuid()
+    id!: string;
     
     @Fields.integer({allowNull: true})
     productId = 0;
@@ -21,8 +21,8 @@ export class CartItem {
     // @Fields.string()
     // name ='';   //Название дублируется для быстрого доступа
 
-    // @Fields.integer()
-    // price! :number; //Цена за еденицу товара на момент добавления
+    @Fields.integer()
+    price! :number; //Цена за еденицу товара на момент добавления
 
     @Fields.integer()
     quantity = 1; //Количество

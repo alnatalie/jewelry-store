@@ -33,6 +33,11 @@ import {
   SendToMobile,
   ShoppingBag,
 } from "@mui/icons-material";
+import {
+  wishlistStore,
+} from "../../../stores/wishlist-store";
+import { useStore } from "@nanostores/react";
+import { cartStore } from "../../../stores/cart-of-product";
 
 const pages = [
   { href: "/", title: "Главная" },
@@ -43,23 +48,26 @@ const pages = [
 ];
 
 export function Nav() {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const wishlistItemsCount = Object.keys(useStore(wishlistStore)).length;
+
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const cartItems = useStore(cartStore);
+  const cartItemsCount = cartItems.reduce((sum, item)=> sum + item.quantity, 0) //счет общего количества товаров
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -115,10 +123,10 @@ export function Nav() {
               primary={
                 <Typography
                   sx={{
-                    fontSize: "1.1rem", // Увеличили шрифт
+                    fontSize: "1.1rem", 
                     fontWeight: 500,
-                    color: "text.primary", // Черный цвет
-                    fontFamily: "inherit", // Наследует шрифт страницы
+                    color: "text.primary", 
+                    fontFamily: "inherit", 
                   }}
                 >
                   {page.title}
@@ -150,14 +158,12 @@ export function Nav() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          borderBottom: "1px solid #e0e0e0"
+          borderBottom: "1px solid #e0e0e0",
         }}
       >
         <Typography
           variant="h5"
-          sx={{ fontWeight: 600,
-            color: "inherit",
-          }}
+          sx={{ fontWeight: 600, color: "inherit" }}
         >
           {remult.user?.name || "Профиль"}
         </Typography>
@@ -173,13 +179,13 @@ export function Nav() {
         {remult.authenticated() ? (
           <>
             <ListItem
-              button
+              // button
               component={Link}
               href="/profile"
               onClick={toggleProfileMenu}
               sx={{ py: 1.5, px: 3 }}
             >
-              <ListItemIcon sx={{ minWidth: 40, color: "#000000",}}>
+              <ListItemIcon sx={{ minWidth: 40, color: "#000000" }}>
                 <AccountCircle />
               </ListItemIcon>
               <ListItemText
@@ -192,7 +198,7 @@ export function Nav() {
             </ListItem>
 
             <ListItem
-              button
+              // button
               component={Link}
               href="/orders"
               onClick={toggleProfileMenu}
@@ -211,7 +217,7 @@ export function Nav() {
             </ListItem>
 
             <ListItem
-              button
+              // button
               component={Link}
               href="/wishlist"
               onClick={toggleProfileMenu}
@@ -232,9 +238,9 @@ export function Nav() {
             <Divider sx={{ my: 1 }} />
 
             <ListItem
-              button
+              // button
               component={Link}
-              href="/api/auth/signout"
+              href="/profile"
               onClick={toggleProfileMenu}
               sx={{ py: 1.5, px: 3 }}
             >
@@ -258,10 +264,11 @@ export function Nav() {
           </>
         ) : (
           <ListItem
-            button
-            component={Link}
-            href="/api/auth/signin"
-            onClick={toggleProfileMenu}
+            // button
+            onClick={() => {
+              toggleProfileMenu();
+              window.location.href = "/profile";
+            }}
             sx={{ py: 1.5, px: 3 }}
           >
             <ListItemIcon sx={{ minWidth: 40 }}>
@@ -488,7 +495,7 @@ export function Nav() {
                     }}
                   >
                     <Badge
-                      badgeContent={4}
+                      badgeContent={wishlistItemsCount}
                       sx={{
                         "& .MuiBadge-badge": {
                           color: "white",
@@ -517,7 +524,7 @@ export function Nav() {
                     }}
                   >
                     <Badge
-                      badgeContent={2}
+                      badgeContent={cartItemsCount}
                       sx={{
                         "& .MuiBadge-badge": {
                           color: "white",
@@ -549,7 +556,7 @@ export function Nav() {
 
                   {/* Боковое меню профиля */}
                   <Drawer
-                    anchor="right" // Выдвигается справа
+                    anchor="right" 
                     open={profileOpen}
                     onClose={toggleProfileMenu}
                     sx={{

@@ -1,9 +1,18 @@
 [
   {
-    "id": "1",
-    "productId": 2,
-    "userId": "ss9eov0c7wjkkso02oovwows",
+    "id": "cmrrg7o63ng8v47gj62i1bcp",
+    "productId": 1,
+    "userId": "nika6y7b7q5rvlk8gisfl8hl",
+    "price": 1990,
+    "quantity": 2,
+    "createdAt": "2025-04-26T06:01:30.700Z"
+  },
+  {
+    "id": "e75v52r9j7gvp8b7486124s3",
+    "productId": 7,
+    "userId": "nika6y7b7q5rvlk8gisfl8hl",
+    "price": 1790,
     "quantity": 1,
-    "createdAt": "2025-04-24T07:21:05.301Z"
+    "createdAt": "2025-04-26T06:01:39.632Z"
   }
 ]
