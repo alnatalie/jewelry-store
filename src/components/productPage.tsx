@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Box,
   Button,
@@ -12,21 +12,20 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Product } from "@/shared/entities/Product";
-import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { addToCart } from "../../stores/cart-of-product";
 import { remult } from "remult";
 import {
   wishlistStore,
-  isWhishlist,
   addToWishList,
   removeFromWhishlist,
 } from "../../stores/wishlist-store";
 import { useStore } from "@nanostores/react";
 
+
 export default function ProductDetails({ product }: { product: Product }) {
-  const wishlist = useStore(wishlistStore);
-  const isFavorite  = isWhishlist(product.id);
+  const whishlist = useStore(wishlistStore);
+  const isFavorite  = !!whishlist[product.id];
 
   const handleAddToCart = async () => {
     try {
@@ -34,10 +33,6 @@ export default function ProductDetails({ product }: { product: Product }) {
         toast.error("Для добавления в корзину необходимо авторизоваться", {
           position: "top-center",
           duration: 3000,
-          action: {
-            label: "Войти",
-            onCllick: () => (window.location.href = "/api/auth/signin"),
-          },
         });
         return;
       }

@@ -1,11 +1,10 @@
-'use client'
 import { Product } from "@/shared/entities/Product";
 import { persistentMap } from '@nanostores/persistent';
 
 
 //Хранилище
 export const wishlistStore = persistentMap<Record<number, Product>>(
-  'wishlist:',
+  'wishlist:', //ключ для localStorage
   {},
   {
     encode: JSON.stringify,
@@ -14,9 +13,12 @@ export const wishlistStore = persistentMap<Record<number, Product>>(
 );
 
 if(typeof window !== 'undefined') {
+  const storageKey = 'wishlist:';
+
   window.addEventListener('storage', (event)=>{
-    if(event.key === wishlistStore.key) {
-      wishlistStore.set(JSON.parse(event.newValue || '{}'));
+    if(event.key === storageKey) {
+      const newValue = event.newValue ? JSON.parse(event.newValue) : {};
+      wishlistStore.set(newValue);
     }
   });
 }
@@ -27,8 +29,8 @@ export function isWhishlist(productId: number): boolean {
 
 //Добавление товаров в вишлист
 export function addToWishList(product: Product) {
-  const exesting = wishlistStore.get()[product.id];
-  if (!exesting) {
+  const existing = wishlistStore.get()[product.id];
+  if (!existing) {
     wishlistStore.setKey(product.id, product);
   }
 }

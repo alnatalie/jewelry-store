@@ -50,6 +50,7 @@ const pages = [
 export function Nav() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  
 
   const [profileOpen, setProfileOpen] = useState(false);
 

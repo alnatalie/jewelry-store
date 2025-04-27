@@ -74,7 +74,7 @@ export default function ProfilePage() {
                             {userAuth ? <Person fontSize="large" /> : <Lock fontSize="large" />}
                         </Avatar>
                         <Typography variant="h4" component="h1" gutterBottom>
-                            {userAuth ? 'Your Profile' : 'Authentication'}
+                            {userAuth ? 'Ваш профиль' : 'Authentication'}
                         </Typography>
                     </Box>
                     <Divider sx={{ my:2}} />

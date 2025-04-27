@@ -1,11 +1,14 @@
 import { User } from "@/demo/auth/User";
-import { Entity, Fields, Relations } from "remult";
+import { Entity, Fields, Relations, remult } from "remult";
 
 
 
 
-@Entity('order', {
-    allowApiCrud: true
+@Entity('orders', {
+    allowApiCrud: true,
+    apiPrefilter: () => ({
+        userId: remult.authenticated() ? remult.user!.id : undefined
+      })
 })
 
 export class Order {

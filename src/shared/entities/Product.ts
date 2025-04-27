@@ -23,7 +23,7 @@ export class Product {
   @Fields.string({ dbName: "category" })
   categoryId = "";
 
-  @Relations.toOne(() => Category, { field: "categoryId" })
+  @Relations.toOne(() => Category, { field: "categoryId", dbName: "category"})
   category!: Category;
 
   @Fields.integer()

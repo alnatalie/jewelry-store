@@ -29,10 +29,11 @@ export const loadCart = async () => {
 };
 
 // Добавление в корзину
+
 export const addToCart = async (product: { id: number, name: string, price: number }) => {
     try {
         if (!remult.authenticated()) {
-            throw new Error("Для добавления в корзину необходимо авторизоваться");
+            return { success: false, message: "Пожалуйста, авторизуйтесь, чтобы добавить в корзину" };
         }
 
         isLoadingStore.set(true);
@@ -42,20 +43,19 @@ export const addToCart = async (product: { id: number, name: string, price: numb
             throw new Error("Не удалось определить пользователя");
         }
 
-        // Проверка, есть ли уже такой товар в корзине
+        
         const existingItem = await remult.repo(CartItem).findFirst({
             productId: product.id,
             userId: currentUser
         });
+        
         if (existingItem) {
-            // Обновляем количество
             const updatedItem = await remult.repo(CartItem).save({
                 ...existingItem,
                 quantity: existingItem.quantity + 1
             });
             cartStore.set(cartStore.get().map(item => item.id === updatedItem.id ? updatedItem : item));
         } else {
-            // Добавляем новый товар
             const newItem = await remult.repo(CartItem).insert({
                 productId: product.id,
                 userId: currentUser,
@@ -63,9 +63,10 @@ export const addToCart = async (product: { id: number, name: string, price: numb
                 createdAt: new Date(),
                 price: product.price,
             });
-
             cartStore.set([...cartStore.get(), newItem]);
         }
+
+        return { success: true };
     } catch (error) {
         console.error('Ошибка при добавлении в корзину:', error);
         errorStore.set(error instanceof Error ? error.message : 'Не удалось добавить в корзину');
@@ -74,6 +75,63 @@ export const addToCart = async (product: { id: number, name: string, price: numb
         isLoadingStore.set(false);
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+// export const addToCart = async (product: { id: number, name: string, price: number }) => {
+//     try {
+//         if (!remult.authenticated()) {
+//             throw new Error("Для добавления в корзину необходимо авторизоваться");
+//         }
+
+//         isLoadingStore.set(true);
+//         const currentUser = remult.user?.id;
+
+//         if (!currentUser) {
+//             throw new Error("Не удалось определить пользователя");
+//         }
+
+//         // Проверка, есть ли уже такой товар в корзине
+//         const existingItem = await remult.repo(CartItem).findFirst({
+//             productId: product.id,
+//             userId: currentUser
+//         });
+//         if (existingItem) {
+//             // Обновляем количество
+//             const updatedItem = await remult.repo(CartItem).save({
+//                 ...existingItem,
+//                 quantity: existingItem.quantity + 1
+//             });
+//             cartStore.set(cartStore.get().map(item => item.id === updatedItem.id ? updatedItem : item));
+//         } else {
+//             // Добавляем новый товар
+//             const newItem = await remult.repo(CartItem).insert({
+//                 productId: product.id,
+//                 userId: currentUser,
+//                 quantity: 1,
+//                 createdAt: new Date(),
+//                 price: product.price,
+//             });
+
+//             cartStore.set([...cartStore.get(), newItem]);
+//         }
+//     } catch (error) {
+//         console.error('Ошибка при добавлении в корзину:', error);
+//         errorStore.set(error instanceof Error ? error.message : 'Не удалось добавить в корзину');
+//         throw error;
+//     } finally {
+//         isLoadingStore.set(false);
+//     }
+// };
 
 
 //Удаление из корзины 
