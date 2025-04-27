@@ -1,0 +1,22 @@
+[
+  {
+    "id": "a29u4rcw965byyi310fi2s2z",
+    "userId": "nika6y7b7q5rvlk8gisfl8hl",
+    "createdAt": "2025-04-27T06:54:36.817Z",
+    "totalAmount": 37290,
+    "items": [
+      {
+        "productId": 1,
+        "productName": "Товар",
+        "price": 1990,
+        "quantity": 1
+      },
+      {
+        "productId": 4,
+        "productName": "Товар",
+        "price": 35300,
+        "quantity": 1
+      }
+    ]
+  }
+]

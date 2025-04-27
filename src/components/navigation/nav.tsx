@@ -50,7 +50,6 @@ const pages = [
 export function Nav() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  
 
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -65,10 +64,7 @@ export function Nav() {
   const cartItems = useStore(cartStore);
   const cartItemsCount = cartItems.reduce((sum, item)=> sum + item.quantity, 0) //счет общего количества товаров
 
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-
+ 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };

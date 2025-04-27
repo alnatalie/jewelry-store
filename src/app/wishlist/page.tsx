@@ -1,7 +1,7 @@
 "use client"
 
 import { useStore } from "@nanostores/react";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, /* GridLegacy as  */Grid, Typography } from "@mui/material";
 import ProductDetails from "@/components/productPage";
 import { wishlistStore } from "../../../stores/wishlist-store";
 

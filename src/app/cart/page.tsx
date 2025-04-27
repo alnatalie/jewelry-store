@@ -3,7 +3,7 @@ import {
   Container,
   Typography,
   Paper,
-  Grid,
+  /* GridLegacy as  */Grid, 
   Box,
   Divider,
   Button,
@@ -121,7 +121,7 @@ export default function CartPage() {
         spacing={4}
       >
         <Grid
-          item
+          item 
           xs={12}
           md={8}
         >
